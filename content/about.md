@@ -79,7 +79,12 @@ That's as far as I plan to take it. At least I hope so. Otherwise it will grow i
 a micro-framework. And who wants that?
 
 To do:
-- [ ] Themes page
-- [ ] quickstart page -- basically clone
-- [ ] installation -- describe the structure of this site
+- [ ] attoweb-basics
+  - [ ] directory structure
+  - [ ] config file
+  - [ ] routing
+  - [ ] default pages
+  - [ ] initial page
+- [X] themes page
+- [X] quickstart page
 - [ ] plugins -- describe nav plugin. go over plugin loop

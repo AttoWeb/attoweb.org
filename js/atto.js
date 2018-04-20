@@ -10,6 +10,7 @@ class Atto
         this.routes = configs.routes;
         this.default_content = configs.default_content;
         this.initial_content = configs.initial_content;
+        this.base_url = configs.base_url || '';
 
         //this.initializeApp();
     }
@@ -133,8 +134,9 @@ class Atto
 
         if ('source' in query_obj && 'target' in query_obj)
         {
-            let source = query_obj.source;
+            let source = this.base_url + query_obj.source;
             let target = query_obj.target;
+            debug(`source=${source} target=${target}`, 2);
 
             let $self = this;
 
