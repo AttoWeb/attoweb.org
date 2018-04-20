@@ -63,3 +63,9 @@ nav ul, nav li {
 .inactive {
     /*color: #000!important;*/
 }
+
+@media (max-width: 800px){
+    .nav-item a, .nav-toggle a {
+        font-size: 2rem;
+    }
+}

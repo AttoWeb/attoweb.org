@@ -55,16 +55,28 @@ becomes
 <p>Some content including a <a href="#source=content/other.md&target=main">link</a></p>
 ```
 
-When you click on the link, first atto catches the _click_ event and stops the default behavior with `preventDefault` which would trigger a page reload. 
-The DOM has an event `hashchange` that tells when the hash has changed regardless of a page reload. So, without reloading the page, atto can grab 
-`window.location.hash` and render the new content. The query in the hash tells atto to AJAX the Markdown source from _http://\[........\]/content/other.md_, 
+When you click on the link, first atto catches the _click_ event and stops the default behavior with `preventDefault` which would trigger a page reload.
+The DOM has an event `hashchange` that tells when the hash has changed regardless of a page reload. So, without reloading the page, atto can grab
+`window.location.hash` and render the new content. The query in the hash tells atto to AJAX the Markdown source from _http://\[........\]/content/other.md_,
 render it into HTML, and stick it in the element with id `#main`.
 
-That's basically all there is to it. I'm working on a simple plugin system, which I used to create the responsive nav in my website. I also want to include optional routing so you could pre-define the queries into link shortcuts such as `[link](other)`.
+That's basically all there is to it.
 
-The entire app is contained in single JavaScript file of (currently) around 250 lines, at least half of which are comments.
+For slightly more advanced usage, there is a simple plugin system which I used to create the responsive nav in my [personal website]{http://arielbalter.com].
+as well as the simple dropdown nav on the [AttoWeb website](http://attoweb.org).There is also an optional simple routing system that lets you create pre-defined
+queries to simplify links and other content queries. For instance, you can specify
 
-That's as far as I plan to take it. At least I hope so. Otherwise it will grow into a femto-framework, burgeon into a pico-framework, and finally bloat into a micro-framework. And who wants that?
+```
+somelink: {path: "content", source: "somepage.md", target: "main"}
+```
+
+so that you can have a link such as `[link](somelink)` which will act the same as the link `[link](#target=main&source=content/somepage.md)`.
+
+The entire app is contained in single JavaScript file of (currently) around 300 lines, at least 100 of which are comments and debuging printouts.
+
+## Future Developments
+That's as far as I plan to take it. At least I hope so. Otherwise it will grow into a femto-framework, burgeon into a pico-framework, and finally bloat into
+a micro-framework. And who wants that?
 
 To do:
 - [ ] Themes page

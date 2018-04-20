@@ -58,7 +58,7 @@ p {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1rem;
     color: #000;
-    line-height: 1.15em;
+    line-height: 1.3em;
     margin: 0 0 0.5em 0;
 }
 
@@ -76,7 +76,7 @@ header {
 }
 
 #attoweb {
-  font-size: 10vw;
+  font-size: 10rem;
   font-size: calc();
   line-height: 1em;
   font-weight: bolder;
@@ -97,7 +97,7 @@ header {
 header p {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1rem;
-  line-height: 1rem;
+  line-height: 1.3rem;
   color: #000;
   margin: 0;
   padding: 0;
@@ -142,6 +142,9 @@ ul, ol {
     main {
         max-width: 100%;
     }
+    #attoweb {
+        font-size: 6rem;
+    }
     h1 {
         font-size: 2.5rem;
     }
@@ -157,5 +160,11 @@ ul, ol {
     h4 {
         font-size: 1.2rem;
         color: #888;
+    }
+}
+
+@media (max-width: 480px){
+    #attoweb {
+        font-size: 4rem;
     }
 }

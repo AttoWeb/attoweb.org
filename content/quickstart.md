@@ -1,8 +1,16 @@
 # Quickstart
 
-1. Clone the [attoweb repo] to we web accessible directory.
-2. Visit <directory>/#target=main&source=page1.md
-3. Visit <directory>/#target=main&source=page2.md
+## Overview
+The minimum necessary for an AttoWeb application is:
+
+* The _atto.js_ file. This provides the core functionality. I put this in a _/js_ folder.
+* A _config.js_ file. This defines basic information about the web application and instantiates an
+  `atto` object with this information. I put this in the top level. Alternatively, one could put this
+  functionality inside `<script>` tags.
+* An _index.html_ (or equivalent) that loads _config.js_.
+* One or more Markdown files. I usually put these in a _/content_ folder.
+
+The quickest way to start would be to clone the [_quickstart_ repo]().
 
 This demonstrates the basic REST function.
 

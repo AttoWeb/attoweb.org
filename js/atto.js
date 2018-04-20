@@ -1,4 +1,4 @@
-var debug_level = 1;
+var debug_level = 2;
 
 class Atto
 {
@@ -56,10 +56,13 @@ class Atto
         }
 
         let url = new URL(window.location.href);
-
+        debug(`window.location.href=${window.location.href}`,2);
+        debug(`url=${url.url}`);
+        debug(`url.query=${url.query}`,2);
+        debug(`url.getQueryPart()=${url.getQueryPart()}`);
         // If no query string, then it is a fresh load, i.e. not a restful request
         // with a query. Insert initial content
-        if (!url.hasQuery)
+        if (!url.has_query)
         {
             debug("no query", 2);
             this.updatePage(this.initial_content);
@@ -67,8 +70,7 @@ class Atto
         // Otherwise handle the query
         else
         {
-            debug(`query = ${url.query}`, 2);
-            this.updatePage(url.query);
+            this.updatePage(url.query_object);
         }
 
         // run plugins
@@ -117,7 +119,8 @@ class Atto
         // processing must be handled in the callback.
         // ajax down the markdown file, render to html,
         // place in page
-        debug(query_obj);
+
+        debug(`query_obj=${query_obj}`);
 
         if (typeof this.routes != 'undefined' && query_obj.source in this.routes)
         {
@@ -230,6 +233,8 @@ class URL
         this.url = url;
         this.valid = this.validate();
         this.query = this.getQueryPart();
+        debug(`url.query=${this.query}`,2);
+        debug(`url.getQueryPart()=${this.getQueryPart()}`);
         if (this.query != "")
         {
             this.query_object = this.parseQuery();

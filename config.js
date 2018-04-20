@@ -16,7 +16,7 @@ var base_url = github_base + username + reponame + 'master/';
 
 var routes =
 {
-  footer: {path: "content", source: "footer.md"},
+  footer: {path: "content", source: "footer.md", target: "main"},
 };
 
 var default_content =
