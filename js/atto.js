@@ -1,8 +1,10 @@
+var debug_level = 1;
+
 class Atto
 {
     constructor(configs)
     {
-        console.log("Atto.constructor");
+        debug("Atto.constructor", 1);
 
         this.plugins = configs.plugins;
         this.routes = configs.routes;
@@ -15,8 +17,8 @@ class Atto
     initializeApp()
     {
         // Sets up
-        console.log("Atto.initializeApp");
-        // console.log(this.default_content);
+        debug("Atto.initializeApp", 1);
+        debug(this.default_content, 2);
 
         let $self = this;
 
@@ -28,31 +30,30 @@ class Atto
         // Capture hash changes and process new request
         $(window).on('hashchange', function()
         {
-          console.log('hashchange');
-        //   console.log($self);
-        //   console.log("href = " + window.location.href);
-          let url = new URL(window.location.href);
-        //   console.log(url);
-        //   console.log(url.query_object);
-          $self.updatePage(url.query_object);
+            debug('hashchange', 1);
+            debug($self, 2);
+            debug("href = " + window.location.href, 1);
+            let url = new URL(window.location.href);
+            debug(url, 2);
+            debug(url.query_object, 2);
+            $self.updatePage(url.query_object);
         });
     }
 
     initializePage()
     {
-        console.log("Atto.initializePage");
+        debug("Atto.initializePage", 1);
 
         // Since this is a new request, place all of the default
         // content.
-        console.log("processing default content");
+        debug("processing default content", 1);
 
-        // console.log(this.default_content);
+        debug(this.default_content, 2);
 
         for (let query_obj of this.default_content)
         {
             this.updatePage(query_obj);
         }
-        console.log('document ready');
 
         let url = new URL(window.location.href);
 
@@ -60,13 +61,13 @@ class Atto
         // with a query. Insert initial content
         if (!url.hasQuery)
         {
-            console.log("no query");
+            debug("no query", 2);
             this.updatePage(this.initial_content);
         }
         // Otherwise handle the query
         else
         {
-            console.log(`query = ${url.query}`);
+            debug(`query = ${url.query}`, 2);
             this.updatePage(url.query);
         }
 
@@ -74,20 +75,21 @@ class Atto
         for (let plugin of this.plugins)
         {
 
-            // console.log(`setting up plugin ${plugin}`);
+            debug(`setting up plugin ${plugin}`, 1);
 
             var css_filename = `plugins/${plugin}/${plugin}.css`;
-            // console.log(`css_filename=${css_filename}`);
+            debug(`css_filename=${css_filename}`, 2);
 
             var js_filename = `plugins/${plugin}/${plugin}.js`;
-            // console.log(`js_filename=${js_filename}`);
+            debug(`js_filename=${js_filename}`, 2);
 
             $.getScript(js_filename);
 
+            debug("getting plugin css", 1);
             $.get(css_filename,(data, status) =>
             {
-                // console.log(data);
-                // console.log(status);
+                debug(data, 2);
+                debug(status, 2);
                 $("<link/>",
                 {
                     rel: "stylesheet",
@@ -103,7 +105,7 @@ class Atto
 
     updatePage(query_obj)
     {
-        console.log("updatePageContent");
+        debug("updatePageContent", 1);
 
         // This updates a single target (accessed by id) on the
         // page with the content from the file pointed to by
@@ -115,15 +117,15 @@ class Atto
         // processing must be handled in the callback.
         // ajax down the markdown file, render to html,
         // place in page
-        // console.log(query_obj);
+        debug(query_obj);
 
         if (typeof this.routes != 'undefined' && query_obj.source in this.routes)
         {
-            console.log('routes');
+            debug('routes', 2);
             let {source, target} = query_obj;
-            // console.log(`source=${source} target=${target}`);
+            debug(`source=${source} target=${target}`, 1);
             query_obj.source = this.routes[source].path + "/" + this.routes[source].source;
-            // console.log(query_obj);
+            debug(query_obj, 2);
         }
 
         if ('source' in query_obj && 'target' in query_obj)
@@ -135,12 +137,12 @@ class Atto
 
             return $.get(source, function(markdown, status)
             {
-                // console.log(markdown);
+                debug(markdown, 3);
 
                 // render the markdown to HTML
                 let html = marked(markdown);
-                // console.log("printing html");
-                // console.log(html);
+                debug("printing html", 3);
+                debug(html, 3);
 
                 // insert in to page
                 $self.insertHTML(html, target);
@@ -148,7 +150,7 @@ class Atto
                 // process callback
                 if ('callback' in query_obj)
                 {
-                    console.log("has callback");
+                    debug("has callback", 1);
                     query_obj.callback();
                 }
 
@@ -166,24 +168,24 @@ class Atto
 
     insertHTML(html, target)
     {
-        console.log("insertHTML");
-        // console.log("target=" + target);
+        debug("insertHTML", 1);
+        debug("target=" + target, 2);
         let target_parts = target.split('.');
-        // console.log("target parts: " + JSON.stringify(target_parts));
-        // console.log("first part: " + target_parts[0]);
+        debug("target parts: " + JSON.stringify(target_parts), 2);
+        debug("first part: " + target_parts[0], 2);
         let target_element = $('#' + target_parts[0]);
-        // console.log("first element");
-        // console.log(target_element);
+        debug("first element", 2);
+        debug(target_element, 2);
         if (target_parts.length > 1)
         {
-            console.log("more parts");
+            debug("more parts", 2);
             for (let next_element of target_parts.slice(1, ))
             {
-                // console.log("next_element: " + next_element);
+                debug("next_element: " + next_element, 2);
                 target_element = $(target_element).find('#' + next_element);
             }
         }
-        // console.log(target_element);
+        debug(target_element, 2);
         target_element.html(html);
     }
 
@@ -194,18 +196,18 @@ class Atto
         // updates the hash with the link href, which is the
         // page update request. Updating the hash fires the
         // hashashchange event, which triggers updating the page.
-        console.log("setLinkEvents");
+        debug("setLinkEvents", 1);
 
         $('a').on('click', function(e)
         {
             let href = $(this).attr('href');
-            alert(href);
+            debug(href, 2);
 
             if (href.match(/^#/))
             {
-                console.log("setting click event");
+                debug("setting click event", 2);
                 e.preventDefault();
-                // console.log(`link href=${href}`);
+                debug(`link href=${href}`, 2);
 
                 // Update the hash with new request
                 window.location.hash = href;
@@ -223,7 +225,7 @@ class URL
 {
     constructor(url)
     {
-        console.log("URL.construtor");
+        debug("URL.construtor", 1);
 
         this.url = url;
         this.valid = this.validate();
@@ -247,25 +249,25 @@ class URL
 
     getQueryPart()
     {
-        console.log("URL.getQueryPart");
-        // console.log(this.url);
+        debug("URL.getQueryPart", 1);
+        debug(this.url, 2);
 
         var query = window.location.hash.replace(/^#/, '');
-        // console.log("query = " + query);
+        debug("query = " + query, 2);
 
         return query;
     }
 
     parseQuery()
     {
-        console.log("URL.parseQuery");
-        // console.log(`query=${this.query}`);
+        debug("URL.parseQuery", 1);
+        debug(`query=${this.query}`, 2);
 
         // We now parse the query.
         // First separate the query into individual sub-queries by splitting
         // on "&"
         let query_list = this.query.split('&');
-        // console.log("query_list=" + JSON.stringify(query_list));
+        debug("query_list=" + JSON.stringify(query_list), 2);
         // Then create a list of the sub-queries
         //
         // initialize an dummy object
@@ -274,9 +276,9 @@ class URL
         this.query_object = {};
         query_list.forEach((item, index) =>
         {
-            // console.log("index=" + index + " item=" + item);
+            debug("index=" + index + " item=" + item, 2);
             let parts = item.split('=');
-            // console.log("parts " + JSON.stringify(parts));
+            debug("parts " + JSON.stringify(parts), 2);
             // A string such as "a=b" splits to ['a','b'].
             // So the subquery looks like
             // {split[0] : split[1]} equiv. {a : b}
@@ -284,8 +286,17 @@ class URL
             let value = parts[1];
             this.query_object[key] = value;
         });
-        // console.log(this.query_object);
+        debug(this.query_object, 2);
         return this.query_object;
+    }
+}
+
+
+function debug(message, level=1)
+{
+    if (level <= debug_level)
+    {
+        console.log(message);
     }
 }
 

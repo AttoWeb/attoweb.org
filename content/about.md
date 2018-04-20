@@ -1,9 +1,6 @@
-**Note** This currently (04/09/2018) does not work as I'm in the middle of building this out from my actual website. If you are interested, you can visit my [personal website](http://arielbalter.com) to see it in action.
+# About
 
-# AttoWeb
-A ridiculously small, pseudo-dynamic, fully client-side web framerwork with a RESTful API.
-
-## About
+## Overview
 I basically created this project to build my own website. It served a number of purposes for me. I wanted to:
 
 1. use a super-lean, markdown-based microframework.
@@ -55,3 +52,9 @@ That's basically all there is to it. I'm working on a simple plugin system, whic
 The entire app is contained in single JavaScript file of (currently) around 250 lines, at least half of which are comments.
 
 That's as far as I plan to take it. At least I hope so. Otherwise it will grow into a femto-framework, burgeon into a pico-framework, and finally bloat into a micro-framework. And who wants that?
+
+To do:
+- [ ] Themes page
+- [ ] quickstart page -- basically clone
+- [ ] installation -- describe the structure of this site
+- [ ] plugins -- describe nav plugin. go over plugin loop

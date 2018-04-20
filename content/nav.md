@@ -1,4 +1,6 @@
-## menu
-* [page1]()
-* [page2]()
-* [page3]()
+* [-about-](#target=main&source=content/about.md)
+* [-usage-]()
+  - [-quickstart-](#target=main&source=content/quickstart.md)
+  - [-installation-](#target=main&source=content/installation.md)
+  - [-plugins-](#target=main&source=content/plugins.md)
+  - [-themes-](#target=main&source=content/themes.md)
