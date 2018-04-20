@@ -35,7 +35,7 @@ https://github.com/jasonm23/markdown-css-themes
 
 
 ## MarkdownCSS
-[John Otander](http://johnotander.com/) has also created a nice set of themes.
+[John Otander](http://johnotander.com/) has also created a nice set of themes. 
 
 ### Demo:
 http://markdowncss.github.io/
