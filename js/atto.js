@@ -86,7 +86,6 @@ class Atto
             var js_filename = `plugins/${plugin}/${plugin}.js`;
             debug(`js_filename=${js_filename}`, 2);
 
-            $.getScript(js_filename);
 
             debug("getting plugin css", 1);
             $.get(css_filename,(data, status) =>
@@ -101,6 +100,8 @@ class Atto
                 })
                 .appendTo("head");
             });
+            
+            $.getScript(js_filename);
 
         }
 

@@ -18,9 +18,9 @@ written in Python, NodeJS, Ruby, Go, etc. These all run on dedicated ports (e.g.
 to a domain name.
 
 However, JavaScript really has all I need:
-1. AJAX files from the server.
+1. AJAX files from the server (or fGitHub repository).
 1. Render the markdown to HTML.
-1. Style the markdown with CSS.
+1. Style the HTML with CSS.
 
 So, I started scribbling with JavaScript. I came up with the idea of using a fake-ish RESTful api so that I didn't have
 to hard-code any paths. I later found out this is called "client side routing." I got it to basically work, and decided
