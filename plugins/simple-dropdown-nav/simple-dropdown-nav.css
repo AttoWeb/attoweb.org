@@ -3,7 +3,7 @@ nav {
   flex-direction: column;
   align-items: center;
   padding: 0;
-  margin: 1rem 0 2rem 0;
+  margin: 1rem 0 1rem 0;
 }
 
 nav ul, nav li {
@@ -23,21 +23,41 @@ nav ul, nav li {
   text-align: center;
 }
 
-.nav-item a, .nav-toggle a {
+.nav-item, .nav-toggle {
   text-decoration: none;
-  color: #000;
+  text-align: center;
   margin: 0;
   padding: 0;
-  font-size: 3rem;
-  line-height: 1.2em;
-  font-family: Courier;
-  font-weight: bolder;
-  text-align: center;
-  text-shadow: 0px 0.07em 0.1em rgba(150, 150, 150, 0.75);
-  text-transform: lowercase;
 }
 
-.nav-item a:hover, .nav-toggle:hover {
+.nav-item a, .nav-toggle a {
+    font-family: Courier, monospace;
+    font-weight: bolder;
+    text-align: center;
+    text-shadow: 0px 0.07em 0.1em rgba(150, 150, 150, 0.75);
+    text-transform: lowercase;
+    color: #000;
+    text-decoration: none;
+}
+
+.nav-item > a {
+    font-size: 2rem;
+    line-height: 1.2em;
+}
+
+.nav-toggle > a {
+    font-size: 3rem;
+    line-height: 1.2em;
+}
+
+.nav-toggle > a::before, 
+.nav-toggle a::after,
+.nav-item > a::before, 
+.nav-item a::after{
+    content: '\00223C';
+}
+
+.nav-item a:hover, .nav-toggle a:hover {
   outline: 2px solid black;
 }
 
@@ -56,7 +76,7 @@ nav ul, nav li {
   display: flex;
 }
 
-.active {
+.active > a {
     color: #888!important;
 }
 

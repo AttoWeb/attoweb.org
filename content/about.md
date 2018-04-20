@@ -1,7 +1,7 @@
 # About
 
 ## Overview
-I basically created this project to build my own website. It served a number of purposes for me. I wanted to:
+I created this project in order to build my own website. It served a number of purposes for me. I wanted to:
 
 1. use a super-lean, markdown-based microframework.
 1. use GitHub as my editing UI.
@@ -62,7 +62,7 @@ render it into HTML, and stick it in the element with id `#main`.
 
 That's basically all there is to it.
 
-For slightly more advanced usage, there is a simple plugin system which I used to create the responsive nav in my [personal website]{http://arielbalter.com].
+For slightly more advanced usage, there is a simple plugin system which I used to create the responsive nav in my [personal website](http://arielbalter.com).
 as well as the simple dropdown nav on the [AttoWeb website](http://attoweb.org).There is also an optional simple routing system that lets you create pre-defined
 queries to simplify links and other content queries. For instance, you can specify
 

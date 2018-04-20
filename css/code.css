@@ -1,14 +1,14 @@
 /*
 
 code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family: Courier, monospace;
   font-size: 12px;
 }
 
 pre {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family: Courier, monospace;
   font-size: 12px;
 }
 
@@ -48,7 +48,7 @@ code, tt {
   border: 1px solid #eaeaea;
   background-color: #f8f8f8;
   border-radius: 3px;
-  font-family: Consolas, 'Liberation Mono', Courier, monospace;
+  font-family: Courier, monospace;
   font-size: 12px;
   color: #333333; }
 

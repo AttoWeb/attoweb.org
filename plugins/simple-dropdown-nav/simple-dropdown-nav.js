@@ -10,10 +10,10 @@ $(document).ready((e) =>
 
   $(".nav li").addClass("nav-item");
 
-  $(".nav > li > a")
-    .eq(1)
+  $('.nav > li').eq(0).removeClass("nav-item")
+
+  $(".nav > li")
     .addClass("nav-toggle")
-    .removeClass("nav-item")
     .addClass("inactive");
 
   $(".nav-toggle").on("click", e =>
