@@ -2,6 +2,7 @@ console.log('config.js');
 
 // Using a module approach works fine--except in firefox!!!
 //import {Atto} from './js/atto.js';
+// using $.getScript below
 
 var plugins =
 [
