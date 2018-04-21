@@ -1,4 +1,4 @@
-var debug_level = 2;
+var debug_level = 0;
 
 class Atto
 {
@@ -85,7 +85,6 @@ class Atto
 
             var js_filename = `plugins/${plugin}/${plugin}.js`;
             debug(`js_filename=${js_filename}`, 2);
-
 
             debug("getting plugin css", 1);
             $.get(css_filename,(data, status) =>
@@ -174,31 +173,15 @@ class Atto
 
     insertHTML(html, target)
     {
-        debug("insertHTML", 1);
-        debug("target=" + target, 2);
-        let target_parts = target.split('.');
-        debug("target parts: " + JSON.stringify(target_parts), 2);
-        debug("first part: " + target_parts[0], 2);
-        let target_element = $('#' + target_parts[0]);
-        debug("first element", 2);
-        debug(target_element, 2);
-        if (target_parts.length > 1)
-        {
-            debug("more parts", 2);
-            for (let next_element of target_parts.slice(1, ))
-            {
-                debug("next_element: " + next_element, 2);
-                target_element = $(target_element).find('#' + next_element);
-            }
-        }
-        debug(target_element, 2);
+        let target_element = $('#' + target);
+        debug(target_element, 3);
         target_element.html(html);
     }
 
     setLinkEvents()
     {
         // When new content is inserted into the page,
-        // we need to attach events to the links. The event
+        // we need to attach an event to each link. The event
         // updates the hash with the link href, which is the
         // page update request. Updating the hash fires the
         // hashashchange event, which triggers updating the page.
@@ -208,7 +191,12 @@ class Atto
         {
             let href = $(this).attr('href');
             debug(href, 2);
-            
+
+            // Want ability to allow specifying to open a link in a new tab.
+            // Preceeding the link with "_" will add the `target="_lank"`
+            // attribute. AFter that, the initial "_" is stripped from the url.
+            // In the unlikely situation where you actually want a
+            // link to start with "_", you just need to add two.
             var new_tab = false;
             if (href.match(/^_/))
             {
@@ -217,6 +205,8 @@ class Atto
                 href = href.trimLeft('_');
             }
 
+            // If the link's href is actually a query, then prevent default and
+            // update the hash instead so the query will get processed.
             if (href.match(/^#/))
             {
                 debug("setting click event", 2);
@@ -228,7 +218,6 @@ class Atto
 
                 return;
             }
-
 
         });
     }
@@ -315,4 +304,4 @@ function debug(message, level=1)
     }
 }
 
-export {Atto};
+// export {Atto};
