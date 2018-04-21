@@ -23,11 +23,12 @@ class Atto
 
         let $self = this;
 
-        // set up page on load
+        // Set up page on load
         $(document).ready($self.initializePage());
 
         //this.initializePage();
 
+        // Set event for handling "requests"
         // Capture hash changes and process new request
         $(window).on('hashchange', function()
         {
