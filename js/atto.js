@@ -26,8 +26,6 @@ class Atto
         // set up page on load
         $(document).ready($self.initializePage());
 
-        //this.initializePage();
-
         // Capture hash changes and process new request
         $(window).on('hashchange', function()
         {
@@ -100,7 +98,7 @@ class Atto
                 })
                 .appendTo("head");
             });
-            
+
             $.getScript(js_filename);
 
         }
@@ -208,6 +206,14 @@ class Atto
         {
             let href = $(this).attr('href');
             debug(href, 2);
+            
+            var new_tab = false;
+            if (href.match(/^_/))
+            {
+                new_tab = true;
+                $(this).attr('target', "_blank");
+                href = href.trimLeft('_');
+            }
 
             if (href.match(/^#/))
             {
@@ -221,7 +227,6 @@ class Atto
                 return;
             }
 
-            $(this).attr('target', "_blank");
 
         });
     }
