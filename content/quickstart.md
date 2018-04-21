@@ -10,7 +10,7 @@ The minimum necessary for an AttoWeb application is:
 * An _index.html_ (or equivalent) that loads _config.js_.
 * One or more Markdown files. I usually put these in a _/content_ folder.
 
-The quickest way to start would be to clone the [_quickstart_ repo](https://github.com/AttoWeb/quickstart).
+The quickest way to start would be to clone the [quickstart repo](_https://github.com/AttoWeb/quickstart).
 
 This demonstrates the basic REST function.
 
