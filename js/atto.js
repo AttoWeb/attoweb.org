@@ -86,8 +86,24 @@ class Atto
             var js_filename = `plugins/${plugin}/${plugin}.js`;
             debug(`js_filename=${js_filename}`, 2);
 
-            debug("getting plugin css", 1);
-            $.get(css_filename,(data, status) =>
+            $.when(this.getPluginCSS(css_filename))
+             .then(this.getPluginScript(js_filename));
+        }
+
+    }
+
+    getPluginScript(js_filename)
+    {
+        debug("loading " + js_filename, 1);
+        $.getScript(js_filename, (data, success) =>
+        {
+            debug(success, 2);
+        });
+    }
+
+    getPluginCSS(css_filename)
+    {
+        $.get(css_filename,(data, status) =>
             {
                 debug(data, 2);
                 debug(status, 2);
@@ -99,11 +115,6 @@ class Atto
                 })
                 .appendTo("head");
             });
-
-            $.getScript(js_filename);
-
-        }
-
     }
 
     updatePage(query_obj)
