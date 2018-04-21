@@ -116,6 +116,19 @@ var routes =
 
 You can use links like `[this](page1) page has interesting stuff. A [list](side1) of other stuff`.
 
+### Plugins
+AttoWeb has a very primitive plugin system you can use to expand functionality. A [separate page](#source=/content/plugins.md&target=main)
+goes into details. In the _config.js_ file you pass a list of plugins such as
+
+```
+var plugins =
+[
+    'simple-dropdown-nav',
+];
+```
+
+into the `atto` constructor using the `configs` object.
+
 ### Loading from Github
 If you want to prevent having to push and pull all the time, you can set up to pull material from GitHub. The
 GitHub API allows you to pull raw files like so:
