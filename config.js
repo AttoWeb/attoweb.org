@@ -1,6 +1,7 @@
 console.log('config.js');
 
-import {Atto} from './js/atto.js';
+// Using a module approach works fine--except in firefox!!!
+//import {Atto} from './js/atto.js';
 
 var plugins =
 [
@@ -41,5 +42,11 @@ var configs =
     base_url: base_url
 };
 
-var app = new Atto(configs);
-app.initializeApp();
+$.getScript('js/atto.js', () =>
+{
+    var app = new Atto(configs);
+    app.initializeApp();
+});
+
+
+
