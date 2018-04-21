@@ -15,7 +15,7 @@ var reponame = 'attoweb/';
 
 // var base_url = github_base + username + reponame + 'master/';
 var base_url = "https://raw.githubusercontent.com/Attoweb/attoweb.org/master/";
-base_url = "";
+// base_url = "";
 
 var routes =
 {
