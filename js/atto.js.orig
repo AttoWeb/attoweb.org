@@ -26,8 +26,12 @@ class Atto
         // Set up page on load
         $(document).ready($self.initializePage());
 
+<<<<<<< HEAD
+        //this.initializePage();
 
         // Set event for handling "requests"
+=======
+>>>>>>> betterlinks
         // Capture hash changes and process new request
         $(window).on('hashchange', function()
         {
