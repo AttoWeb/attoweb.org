@@ -63,21 +63,4 @@ if ($(".dropdown").hasClass("visible"))
 }
 });
 
-console.log($('nav').html());
-
-console.log("adding css file to DOM");
-$("<link/>",
-{
-    rel: "stylesheet",
-    type: "text/css",
-    href: "simple-dropdown-navigation.css"
-})
-.appendTo("head");
-
-
 console.log("done with nav script");
-
-//   console.log("redrawing nav");
-//   $('nav').hide().show(0);
-//   $('nav').focus();
-// });
