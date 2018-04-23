@@ -1,7 +1,7 @@
 console.log('simple dropdown nav');
 
-$(document).ready((e) =>
-{
+// $(document).ready((e) =>
+// {
   $("nav *").css("list-style", "none");
 
   $("nav > ul").addClass("nav");
@@ -62,4 +62,10 @@ $(document).ready((e) =>
         .removeClass('active');
     }
   });
-});
+  
+  console.log("done with nav script");
+
+//   console.log("redrawing nav");
+//   $('nav').hide().show(0);
+//   $('nav').focus();
+// });

@@ -51,14 +51,8 @@
     <main id="main"></main>
     <footer id="footer"></footer>
 
-<<<<<<< HEAD
-    <!--  AttoWeb Master Script  -->
+    <!--  AttoWeb Configuration Script  -->
     <script src="config.js" type="module"></script>
-=======
-    <!--  Custom Script  -->
-    <script src="config.js"></script>
-
->>>>>>> betterlinks
     <!--  Custom Styles (load after page ready)  -->
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
