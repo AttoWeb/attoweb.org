@@ -1,3 +1,5 @@
+console.log('simple dropdown nav');
+
 $(document).ready((e) =>
 {
   $("nav *").css("list-style", "none");
