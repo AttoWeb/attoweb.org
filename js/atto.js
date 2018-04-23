@@ -66,42 +66,12 @@ class Atto
         if (!url.has_query)
         {
             debug("no query", 2);
-            $.when(this.updatePage(url.query_object)).then(this.runPlugins());
+-           $.when(this.updatePage(this.initial_content)).then(() => this.runPlugins());
         }
         // Otherwise handle the query
         else
         {
-            $.when(this.updatePage(url.query_object)).then(this.runPlugins());
-        }
-
-        // run plugins
-        for (let plugin of this.plugins)
-        {
-
-            debug(`setting up plugin ${plugin}`, 1);
-
-            var css_filename = `plugins/${plugin}/${plugin}.css`;
-            debug(`css_filename=${css_filename}`, 2);
-
-            $.when(console.log($('body').html()))
-            .then((data, success) =>
-            {
-                console.log("then 1");
-              this.getPluginScript(js_filename);
-            })
-            .then((data, success) =>
-            {
-                console.log("then 2");
-                console.log("printing hav html");
-                console.log($('#nav').html());
-                this.setPluginCSS(css_filename);
-            })
-            .done((data, success) =>
-            {
-              $('#nav').focus();
-              $('#nav').hide().show(0);
-            });
-
+            $.when(this.updatePage(url.query_object)).then(() => this.runPlugins);
         }
 
     }
@@ -120,73 +90,7 @@ class Atto
             var js_filename = `plugins/${plugin}/${plugin}.js`;
             debug(`js_filename=${js_filename}`, 2);
 
-            // $.when(this.getPluginCSS(css_filename))
-            //  .then((data, success) =>
-            //  {
-            //      debug("presumably css loaded " + css_filename, 1);
-            //      debug(data, 2);
-            //      debug(status, 2);
-            //      this.getPluginScript(js_filename);
-            //  });
-
-            //  $.when(this.getPluginScript(js_filename))
-            //  .done((data, success) =>
-            //  {
-            //      debug("presumably script loaded " + css_filename, 1);
-            //      debug(data, 2);
-            //      debug(status, 2);
-            //      this.getPluginCSS(css_filename)
-
-            // $.when("x")
-            // .then((data, success) =>
-            // {
-            //     console.log("then 1");
-            //     this.getPluginScript(js_filename);
-            // })
-            // .then((data, success) =>
-            // {
-            //     console.log("then 2");
-            //     console.log("data");
-            //     console.log(data);
-            //     console.log("success = " + success);
-            //     console.log("printing nav html");
-            //     console.log($('#nav').html());
-            // })
-            // .then((data, success) =>
-            // {
-            //     console.log("then 3");
-            //     this.getPluginCSS(css_filename)
-            // })
-            // .then((data, success) =>
-            // {
-            //     console.log("then 4");
-            //     $('#nav').toggle().toggle();
-            // })
-            // .done((data, success) =>
-            // {
-            //     console.log("done");
-            //     console.log("printing nav html again");
-            //     console.log($('#nav').html());
-            // });
-
-            $.when(console.log($('body').html()))
-            .then((data, success) =>
-            {
-              this.getPluginScript(js_filename);
-            })
-            .then((data, success) =>
-            {
-                console.log("printing hav html");
-                console.log($('#nav').html());
-                alert(document.getElementById('nav').innerHTML);
-                this.setPluginCSS(css_filename);
-            })
-            .done((data, success) =>
-            {
-               $('#nav').focus();
-               $('#nav').hide().show(0);
-            });
-
+            $.when($.getScript(js_filename)).then(this.setPluginCSS(css_filename));
         }
 
     }
@@ -194,7 +98,7 @@ class Atto
     getPluginScript(js_filename)
     {
         debug("loading " + js_filename, 1);
-        $.getScript(js_filename, (data, success) =>
+        return $.getScript(js_filename, (data, success) =>
         {
             debug("got script " + js_filename, 2);
             debug(data, 2);
@@ -213,37 +117,11 @@ class Atto
         .appendTo("head");
     }
 
-    getPluginCSS(css_filename)
-    {
-        debug("loading " + css_filename, 1);
-        $.get(css_filename,(data, status) =>
-        {
-            debug("got css " + css_filename, 2);
-            debug(data, 2);
-            debug(status, 2);
-            $("<style>")
-            .html(data)
-            .appendTo("head");
-
-
-            // debug("got css " + css_filename, 2);
-            // debug(data, 2);
-            // debug(status, 2);
-            // $("<link/>",
-            // {
-            //     rel: "stylesheet",
-            //     type: "text/css",
-            //     href: css_filename
-            // })
-            // .appendTo("head");
-        });
-    }
-
     updatePage(query_obj)
     {
         debug("updatePageContent", 1);
 
-        // This updates a single target (accessed by id) on the
+        // This updates a single target (accessed by id) on thed
         // page with the content from the file pointed to by
         // the source path.
         //

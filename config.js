@@ -43,8 +43,9 @@ var configs =
     base_url: base_url
 };
 
-$.getScript('js/atto.js', () =>
+$.getScript('js/atto.js', (data, success) =>
 {
+    console.log("got atto.js " + success);
     var app = new Atto(configs);
     app.initializeApp();
 });
