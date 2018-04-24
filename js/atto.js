@@ -66,14 +66,14 @@ class Atto
         if (!url.has_query)
         {
             debug("no query", 2);
-            this.updatePage(this.initial_content);
-// -           $.when(this.updatePage(this.initial_content)).then(() => this.runPlugins());
+            // this.updatePage(this.initial_content);
+-           $.when(this.updatePage(this.initial_content)).then(() => this.runPlugins());
         }
         // Otherwise handle the query
         else
         {
-            this.updatePage(url.query_object);
-            // $.when(this.updatePage(url.query_object)).then(() => this.runPlugins);
+            // this.updatePage(url.query_object);
+            $.when(this.updatePage(url.query_object)).then(() => this.runPlugins);
         }
 
     }
