@@ -11,8 +11,6 @@ class Atto
         this.default_content = configs.default_content || [];
         this.initial_content = configs.initial_content || {};
         this.base_url = configs.base_url || '';
-
-        //this.initializeApp();
     }
 
     initializeApp()
@@ -24,7 +22,7 @@ class Atto
         let $self = this;
 
         // Set up page on load
-        $(document).ready($self.initializePage());
+        this.initializePage();
 
 
         // Set event for handling "requests"
@@ -53,27 +51,27 @@ class Atto
 
         for (let query_obj of this.default_content)
         {
+            debug("default query obj: " + JSON.stringify(query_obj), 2);
             this.updatePage(query_obj);
         }
 
         let url = new URL(window.location.href);
         debug(`window.location.href=${window.location.href}`,2);
         debug(`url=${url.url}`);
-        debug(`url.query=${url.query}`,2);
+        debug(`url.query=${url.query}`);
         debug(`url.getQueryPart()=${url.getQueryPart()}`);
         // If no query string, then it is a fresh load, i.e. not a restful request
         // with a query. Insert initial content
         if (!url.has_query)
         {
             debug("no query", 2);
-            // this.updatePage(this.initial_content);
--           $.when(this.updatePage(this.initial_content)).then(() => this.runPlugins());
+            this.updatePage(this.initial_content);
         }
         // Otherwise handle the query
         else
         {
-            // this.updatePage(url.query_object);
-            $.when(this.updatePage(url.query_object)).then(() => this.runPlugins);
+            debug("has query", 2);
+            this.updatePage(url.query_object);
         }
 
     }
@@ -168,8 +166,8 @@ class Atto
                 // process callback
                 if ('callback' in query_obj)
                 {
-                    debug("has callback", 1);
-                    query_obj.callback();
+                    debug("has callback " + query_obj.callback, 1);
+                    $.getScript(query_obj.callback);
                 }
 
                 // The default callback is to set events on
@@ -179,7 +177,7 @@ class Atto
                 // 2) process the query
                 // This mimics making an actual HTTP request
                 $self.setLinkEvents();
-            }).done(() => $self.runPlugins());
+            });
         }
 
     }

@@ -40,7 +40,6 @@ $(".nav-toggle").on("click", e =>
     }
 });
 
-
 $(window).on('hashchange', e =>
 {
     if ($(".dropdown").hasClass("visible"))
@@ -56,5 +55,14 @@ $(window).on('hashchange', e =>
         .removeClass('active');
     }
 });
+
+$("<link/>",
+{
+    rel: "stylesheet",
+    type: "text/css",
+    href: 'plugins/simple-dropdown-nav/simple-dropdown-nav.css'
+})
+.appendTo("head");
+
 
 console.log("done with nav script");

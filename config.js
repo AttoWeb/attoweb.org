@@ -25,7 +25,7 @@ var routes =
 var default_content =
 [
   {target: 'header', source: 'content/header.md'},
-  {target: 'nav', source: 'content/nav.md'},
+  {target: 'nav', source: 'content/nav.md', callback: 'plugins/simple-dropdown-nav/simple-dropdown-nav.js'},
   {target: 'footer', source: 'footer'}
 ];
 
