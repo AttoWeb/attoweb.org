@@ -101,6 +101,9 @@ It's worth noting that you can specify any _source_ and _target_ you want, so pa
 
 There is probably a better way to do all of this...
 
+### Callbacks
+The `callback` function is used to run any special code after loading that particular content. This callback can be used to
+add classes and IDs to new elements and add new CSS for styling and dynamic functionality.
 
 ### Routes
 This is really just candy. If you feel like it, you can set up routes so that you can use prettier links in the nav
