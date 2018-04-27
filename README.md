@@ -3,6 +3,8 @@ _A ridiculously small, pseudo-dynamic, fully client-side web framerwork with a R
 
 This is the source for the [attoweb.org website](http://attoweb.org).
 
+**NOTE:** At times this link may lag behind the attoweb.org [about page](attoweb.org?target=main&source=content/about.md).  
+
 ## Overview
 I created this project in order to build my own website. It served a number of purposes for me. I wanted to:
 
@@ -65,7 +67,7 @@ When you click on the link, first atto catches the _click_ event and stops the d
 
 For slightly more advanced usage, there is a simple [plugin system](?target=main&source=content/plugins.md) which I used to create the responsive nav in my [personal website](http://arielbalter.com) as well as the simple dropdown nav on the [AttoWeb website](http://attoweb.org).
 
-**Note:** The plugin system is currently being implemented as page update callbacks. Once I get this smoothed out, instructions will follow. 
+**Note:** The plugin system is currently being implemented as page update [callbacks](?target=main&source=content/attoweb-basics.md#callbacks). Once I get this smoothed out, instructions will follow. 
 
 There is also an optional simple routing system that lets you create pre-defined queries to simplify links and other content queries. For instance, you can specify
 
@@ -91,3 +93,5 @@ To do:
 - [X] themes page
 - [X] quickstart page
 - [ ] plugins -- describe nav plugin. go over plugin loop
+- [ ] Make hashes for in-page links work. Will probably require page
+      scrolling to the desired point in the page.
