@@ -3,7 +3,7 @@ _A ridiculously small, pseudo-dynamic, fully client-side web framerwork with a R
 
 This is the source for the [attoweb.org website](http://attoweb.org).
 
-**NOTE:** At times this link may lag behind the attoweb.org [about page](attoweb.org?target=main&source=content/about.md).  
+**NOTE:** At times this link may lag behind the attoweb.org [about page](http://attoweb.org?target=main&source=content/about.md).  
 
 ## Overview
 I created this project in order to build my own website. It served a number of purposes for me. I wanted to:
