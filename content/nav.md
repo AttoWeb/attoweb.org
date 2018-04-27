@@ -1,4 +1,4 @@
-* [menu999]()
+* [menu]()
   - [about](?target=main&source=content/about.md)
   - [quickstart](?target=main&source=content/quickstart.md)
   - [attoweb-basics](?target=main&source=content/attoweb-basics.md)

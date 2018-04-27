@@ -14,8 +14,8 @@ var username = 'abalter/';
 var reponame = 'attoweb/';
 
 // var base_url = github_base + username + reponame + 'master/';
-var base_url = "https://raw.githubusercontent.com/Attoweb/attoweb.org/master/";
-// base_url = "";
+// var base_url = "https://raw.githubusercontent.com/Attoweb/attoweb.org/httpquery/";
+base_url = "";
 
 var routes =
 {
@@ -41,7 +41,6 @@ var configs =
     default_content: default_content,
     initial_content: initial_content,
     base_url: base_url,
-    home_url: "localhost/attoweb.org"
 };
 
 $.getScript('js/atto.js', (data, success) =>

@@ -10,9 +10,9 @@ class Atto
         this.routes = configs.routes || [];
         this.default_content = configs.default_content || [];
         this.initial_content = configs.initial_content || {};
-        this.base_url = configs.base_url || '';
-        // this.home_url = configs.home_url || window.location.origin;
         this.home_url = window.location.origin + window.location.pathname;
+        this.base_url = configs.base_url || this.home_url;
+        // this.home_url = configs.home_url || window.location.origin;
     }
 
     initializeApp()
@@ -26,20 +26,8 @@ class Atto
         // Set up page on load
         this.initializePage();
 
-        $.ready(this.setLinkEvents());
+        // $.ready(this.setLinkEvents());
 
-        // Set event for handling "requests"
-        // Capture hash changes and process new request
-        $(window).on('hashchange', function()
-        {
-            debug('hashchange', 1);
-            debug($self, 2);
-            debug("href = " + window.location.href, 1);
-            let url = new URL(window.location.href);
-            debug(url, 2);
-            debug(url.query_object, 2);
-            // $self.updatePage(url.query_object);
-        });
     }
 
     initializePage()
@@ -79,47 +67,6 @@ class Atto
 
     }
 
-    runPlugins()
-    {
-        debug("running plugins", 1);
-        for (let plugin of this.plugins)
-        {
-
-            debug(`setting up plugin ${plugin}`, 1);
-
-            var css_filename = `plugins/${plugin}/${plugin}.css`;
-            debug(`css_filename=${css_filename}`, 2);
-
-            var js_filename = `plugins/${plugin}/${plugin}.js`;
-            debug(`js_filename=${js_filename}`, 2);
-
-            $.when($.getScript(js_filename)).then(this.setPluginCSS(css_filename));
-        }
-
-    }
-
-    getPluginScript(js_filename)
-    {
-        debug("loading " + js_filename, 1);
-        return $.getScript(js_filename, (data, success) =>
-        {
-            debug("got script " + js_filename, 2);
-            debug(data, 2);
-            debug(success, 2);
-        });
-    }
-
-    setPluginCSS(css_filename)
-    {
-        $("<link/>",
-        {
-            rel: "stylesheet",
-            type: "text/css",
-            href: css_filename
-        })
-        .appendTo("head");
-    }
-
     updatePage(query_obj)
     {
         debug("updatePageContent", 1);
@@ -154,6 +101,8 @@ class Atto
 
             let $self = this;
 
+            // $.get("content/attoweb-basics.md", (markdown, success) => console.log(markdown));
+
             return $.get(source, function(markdown, status)
             {
                 debug(markdown, 3);
@@ -179,7 +128,7 @@ class Atto
                 // 1) update the URL
                 // 2) process the query
                 // This mimics making an actual HTTP request
-                $self.setLinkEvents();
+                $self.setLinkEvents(target);
             });
         }
 
@@ -192,30 +141,35 @@ class Atto
         target_element.html(html);
     }
 
-    setLinkEvents()
+    setLinkEvents(target)
     {
+        // Only set events on new links inserted into target
+        // 1. Push History State
+        // 2. Handle "Query"
 
-        // 1. Update URL
-        // 2. Push History State
-        // 3. Handle "Query"
+        debug("setLinkEvents for " + target, 1);
+        var $self = this;
 
-        debug("setLinkEvents", 1);
-
-        var $self = $(this);
-
-        console.log($self);
-
-        $('a').on('click', function(e)
+        $('#' + target + ' a').on('click', function(e)
         {
+            // Check the href. If it is empty then it's not a link
+            // we need to worry about.
             let href = $(this).attr('href');
-            debug("clicked link href=" + href, 1);
+            debug("link href=" + href, 1);
             if (href == "" || href == null || typeof href == undefined)
             {
                 debug("not a link", 1)
                 return;
             }
 
-            // var local = (href.match(this.home_url)) ? true : false;
+            // Check if the href is a hash. If so, it is for an 
+            // in-page section
+            var is_hash = /^#/.test(href);
+            debug("is hash = " + is_hash, 2);
+            
+            // Check if the href starts with a usual web url.
+            // If so, it is an external link and should follow usual propagation
+            // If not, it is local to the website.
             var local = href.match(/https?:\/\/[a-zA-Z0-9_\-\.\/]+/) ? false : true;
             debug("local = " + local, 2);
 
@@ -225,42 +179,54 @@ class Atto
             // attribute. AFter that, the initial "_" is stripped from the url.
             // In the unlikely situation where you actually want a
             // link to start with "_", you just need to add two.
+            //
+            // This only works for external links.
+            // TODO: make also possible for internal links.
             var new_tab = false;
             if (href.match(/^_/))
             {
                 new_tab = true;
                 $(this).attr('target', "_blank");
                 href = href.trimLeft('_');
+                $(this).attr('href', href);
             }
             // ----------------------------------------
 
             if (local)
             {
                 debug("local link", 1);
+                
                 // Stop link default action
                 e.preventDefault();
 
-                // Strip non-query part of URL
-                // Not necessary unless full URL
-                // var path = href.trimLeft($self.home_url);
-                // debug("path: " + path, 2);
-                // if (!$.isEmptyObject(this.routes))
-                // {
-                //     var {query_string, query_obj} = this.resolveRoute(path);
-                // }
-
-                var full_url = $self.home;
+                // "Manufacture" a full url so the machinery in the 
+                // URL class can be used. First strip any trailing
+                // slash from home_url. Maybe do this at top?
+                // TODO: this should not be necessary
+                var full_url = $self.home_url.replace(/\/$/, '') + href;
                 debug("full url = " + full_url, 2);
-                var url = new URL($self.home_url + href);
+                
+                // Instantiate a URL object and extract the query
+                var url = new URL(full_url);
                 var query = url.query;
                 var query_obj = url.query_object;
-                debug("query_obj = " + JSON.stringify(query_obj));
+                debug("query_obj = " + JSON.stringify(query_obj), 2);
 
-                history.pushState(null, null, query);
+                // This is only to handle the single case of an empty 
+                // link address in the markdown to point to home_url.
+                // Seems like it should happen more organically.
+                if (query == "")
+                {
+                    window.location = $self.home_url;
+                }
+                else
+                {
+                    
+                    
+                    $self.updatePage(query_obj);
+                    history.pushState(null, null, full_url);
+                }
 
-                $self.updatePage(query_obj);
-
-                return;
             }
 
         });
@@ -298,9 +264,11 @@ class URL
     getQueryPart()
     {
         debug("URL.getQueryPart", 1);
-        debug(this.url, 2);
+        debug(`this.url ${this.url}`, 2);
 
-        var query = window.location.hash.replace(/^\?/, '');
+        var query_match = this.url.match(/\?+(.*)/);
+        console.log(query_match);
+        var query = (query_match && query_match.length) > 1 ? query_match[1] : "";
         debug("query = " + query, 2);
 
         return query;
@@ -349,3 +317,5 @@ function debug(message, level=1)
 }
 
 // export {Atto};
+
+//# sourceURL=atto.js
