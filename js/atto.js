@@ -162,11 +162,11 @@ class Atto
                 return;
             }
 
-            // Check if the href is a hash. If so, it is for an 
+            // Check if the href is a hash. If so, it is for an
             // in-page section
             var is_hash = /^#/.test(href);
             debug("is hash = " + is_hash, 2);
-            
+
             // Check if the href starts with a usual web url.
             // If so, it is an external link and should follow usual propagation
             // If not, it is local to the website.
@@ -195,35 +195,36 @@ class Atto
             if (local)
             {
                 debug("local link", 1);
-                
+
                 // Stop link default action
                 e.preventDefault();
 
-                // "Manufacture" a full url so the machinery in the 
+                // "Manufacture" a full url so the machinery in the
                 // URL class can be used. First strip any trailing
                 // slash from home_url. Maybe do this at top?
                 // TODO: this should not be necessary
                 var full_url = $self.home_url.replace(/\/$/, '') + href;
                 debug("full url = " + full_url, 2);
-                
+
                 // Instantiate a URL object and extract the query
                 var url = new URL(full_url);
                 var query = url.query;
                 var query_obj = url.query_object;
                 debug("query_obj = " + JSON.stringify(query_obj), 2);
 
-                // This is only to handle the single case of an empty 
+                // This is only to handle the single case of an empty
                 // link address in the markdown to point to home_url.
                 // Seems like it should happen more organically.
                 if (query == "")
                 {
+                    debug("empty address -- going home", 2);
                     window.location = $self.home_url;
                 }
                 else
                 {
-                    
-                    
+                    debug("Updating page with query obj " + JSON.stringify(query_obj), 2);
                     $self.updatePage(query_obj);
+                    debug("pushing history state " + full_url);
                     history.pushState(null, null, full_url);
                 }
 
