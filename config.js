@@ -40,7 +40,8 @@ var configs =
     routes: routes,
     default_content: default_content,
     initial_content: initial_content,
-    base_url: base_url
+    base_url: base_url,
+    home_url: "localhost/attoweb.org"
 };
 
 $.getScript('js/atto.js', (data, success) =>

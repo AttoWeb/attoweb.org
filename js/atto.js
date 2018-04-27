@@ -11,6 +11,8 @@ class Atto
         this.default_content = configs.default_content || [];
         this.initial_content = configs.initial_content || {};
         this.base_url = configs.base_url || '';
+        // this.home_url = configs.home_url || window.location.origin;
+        this.home_url = window.location.origin + window.location.pathname;
     }
 
     initializeApp()
@@ -24,6 +26,7 @@ class Atto
         // Set up page on load
         this.initializePage();
 
+        $.ready(this.setLinkEvents());
 
         // Set event for handling "requests"
         // Capture hash changes and process new request
@@ -35,7 +38,7 @@ class Atto
             let url = new URL(window.location.href);
             debug(url, 2);
             debug(url.query_object, 2);
-            $self.updatePage(url.query_object);
+            // $self.updatePage(url.query_object);
         });
     }
 
@@ -191,18 +194,32 @@ class Atto
 
     setLinkEvents()
     {
-        // When new content is inserted into the page,
-        // we need to attach an event to each link. The event
-        // updates the hash with the link href, which is the
-        // page update request. Updating the hash fires the
-        // hashashchange event, which triggers updating the page.
+
+        // 1. Update URL
+        // 2. Push History State
+        // 3. Handle "Query"
+
         debug("setLinkEvents", 1);
+
+        var $self = $(this);
+
+        console.log($self);
 
         $('a').on('click', function(e)
         {
             let href = $(this).attr('href');
-            debug(href, 2);
+            debug("clicked link href=" + href, 1);
+            if (href == "" || href == null || typeof href == undefined)
+            {
+                debug("not a link", 1)
+                return;
+            }
 
+            // var local = (href.match(this.home_url)) ? true : false;
+            var local = href.match(/https?:\/\/[a-zA-Z0-9_\-\.\/]+/) ? false : true;
+            debug("local = " + local, 2);
+
+            // ------------------------------------------
             // Want ability to allow specifying to open a link in a new tab.
             // Preceeding the link with "_" will add the `target="_lank"`
             // attribute. AFter that, the initial "_" is stripped from the url.
@@ -215,17 +232,33 @@ class Atto
                 $(this).attr('target', "_blank");
                 href = href.trimLeft('_');
             }
+            // ----------------------------------------
 
-            // If the link's href is actually a query, then prevent default and
-            // update the hash instead so the query will get processed.
-            if (href.match(/^#/))
+            if (local)
             {
-                debug("setting click event", 2);
+                debug("local link", 1);
+                // Stop link default action
                 e.preventDefault();
-                debug(`link href=${href}`, 2);
 
-                // Update the hash with new request
-                window.location.hash = href;
+                // Strip non-query part of URL
+                // Not necessary unless full URL
+                // var path = href.trimLeft($self.home_url);
+                // debug("path: " + path, 2);
+                // if (!$.isEmptyObject(this.routes))
+                // {
+                //     var {query_string, query_obj} = this.resolveRoute(path);
+                // }
+
+                var full_url = $self.home;
+                debug("full url = " + full_url, 2);
+                var url = new URL($self.home_url + href);
+                var query = url.query;
+                var query_obj = url.query_object;
+                debug("query_obj = " + JSON.stringify(query_obj));
+
+                history.pushState(null, null, query);
+
+                $self.updatePage(query_obj);
 
                 return;
             }
@@ -241,7 +274,7 @@ class URL
         debug("URL.construtor", 1);
 
         this.url = url;
-        this.valid = this.validate();
+        // this.valid = this.validate();
         this.query = this.getQueryPart();
         debug(`url.query=${this.query}`,2);
         debug(`url.getQueryPart()=${this.getQueryPart()}`);
@@ -267,7 +300,7 @@ class URL
         debug("URL.getQueryPart", 1);
         debug(this.url, 2);
 
-        var query = window.location.hash.replace(/^#/, '');
+        var query = window.location.hash.replace(/^\?/, '');
         debug("query = " + query, 2);
 
         return query;
