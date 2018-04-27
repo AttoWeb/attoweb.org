@@ -3,7 +3,7 @@
 ## Overview
 AttoWeb has a simple plugin system. When you instantiate the web application you
 can pass in an object that contains a list of plugins to run. You specify this list
-in the _config.js_ file which is explained in the [AttoWeb Basics](#source=content/attoweb-basics.md&target=main) page.
+in the _config.js_ file which is explained in the [AttoWeb Basics](?source=content/attoweb-basics.md&target=main) page.
 These plugins run in a loop when the application is instantiated. The system is
 extremely primitive.
 

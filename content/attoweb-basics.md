@@ -117,7 +117,7 @@ var routes =
 You can use links like `[this](page1) page has interesting stuff. A [list](side1) of other stuff`.
 
 ### Plugins
-AttoWeb has a very primitive plugin system you can use to expand functionality. A [separate page](#source=/content/plugins.md&target=main)
+AttoWeb has a very primitive plugin system you can use to expand functionality. A [separate page](?source=/content/plugins.md&target=main)
 goes into details. In the _config.js_ file you pass a list of plugins such as
 
 ```

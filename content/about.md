@@ -45,14 +45,14 @@ Suppose you set up the app to originally render _initial.md_ into `#main`:
 _initial.md_
 ```
 ## Title
-Some content including a [link](#source=content/other.md&target=main)
+Some content including a [link](?source=content/other.md&target=main)
 ```
 
 becomes
 
 ```
 <h2>Title</h2>
-<p>Some content including a <a href="#source=content/other.md&target=main">link</a></p>
+<p>Some content including a <a href="?source=content/other.md&target=main">link</a></p>
 ```
 
 When you click on the link, first atto catches the _click_ event and stops the default behavior with `preventDefault` which would trigger a page reload.
@@ -70,7 +70,7 @@ queries to simplify links and other content queries. For instance, you can speci
 somelink: {path: "content", source: "somepage.md", target: "main"}
 ```
 
-so that you can have a link such as `[link](somelink)` which will act the same as the link `[link](#target=main&source=content/somepage.md)`.
+so that you can have a link such as `[link](somelink)` which will act the same as the link `[link](?target=main&source=content/somepage.md)`.
 
 The entire app is contained in single JavaScript file of (currently) around 300 lines, at least 100 of which are comments and debuging printouts.
 

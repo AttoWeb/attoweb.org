@@ -14,4 +14,4 @@ The quickest way to start would be to clone the [quickstart repo](https://github
 
 This demonstrates the basic REST function.
 
-To learn more advanced methods of using AttoWeb, see the [attoweb basics](#target=main&source=content/attoweb-basics.md) page.
+To learn more advanced methods of using AttoWeb, see the [attoweb basics](?target=main&source=content/attoweb-basics.md) page.
