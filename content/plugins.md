@@ -1,5 +1,8 @@
 # Plugins
 
+**NOTE:** The plugin system is currently implemented through page update [callbacks](?target=main&source=content/attoweb-basics.md#callbacks).
+More developments to follow...
+
 ## Overview
 AttoWeb has a simple plugin system. When you instantiate the web application you
 can pass in an object that contains a list of plugins to run. You specify this list
