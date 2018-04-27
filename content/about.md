@@ -88,3 +88,5 @@ To do:
 - [X] themes page
 - [X] quickstart page
 - [ ] plugins -- describe nav plugin. go over plugin loop
+- [ ] Make hashes for in-page links work. Will probably require page
+      scrolling to the desired point in the page.
