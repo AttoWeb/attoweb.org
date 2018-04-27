@@ -55,16 +55,16 @@ becomes
 <p>Some content including a <a href="?source=content/other.md&target=main">link</a></p>
 ```
 
-When you click on the link, first atto catches the _click_ event and stops the default behavior with `preventDefault` which would trigger a page reload.
-The DOM has an event `hashchange` that tells when the hash has changed regardless of a page reload. So, without reloading the page, atto can grab
-`window.location.hash` and render the new content. The query in the hash tells atto to AJAX the Markdown source from _http://\[........\]/content/other.md_,
-render it into HTML, and stick it in the element with id `#main`.
+When you click on the link, first atto catches the _click_ event and stops the default behavior with `preventDefault` which would trigger a page reload. Then atto parses out the query. It creates a full url that contains the home url (e.g. http://exmple.com/mysite). Finally atto does two thangs that characterize how ti works: 
 
-That's basically all there is to it.
+1. It makes a call to the `updatePage` function passing in the query. This function AJAXes down the Markdown source from `http://\[........\]/content/other.md`, renders it into HTML and sticks it in the element with ID `#main`.
+2. It update what is in the url bar using `window.history.pushState`. This does NOT trigger a page reload. But it does make it _look_ like you are on a new page, and also updates the browser history so the back and forwards buttons work.
 
-For slightly more advanced usage, there is a simple plugin system which I used to create the responsive nav in my [personal website](http://arielbalter.com).
-as well as the simple dropdown nav on the [AttoWeb website](http://attoweb.org).There is also an optional simple routing system that lets you create pre-defined
-queries to simplify links and other content queries. For instance, you can specify
+For slightly more advanced usage, there is a simple [plugin system](?target=main&source=content/plugins.md) which I used to create the responsive nav in my [personal website](http://arielbalter.com) as well as the simple dropdown nav on the [AttoWeb website](http://attoweb.org).
+
+**Note:** The plugin system is currently being implemented as page update callbacks. Once I get this smoothed out, instructions will follow. 
+
+There is also an optional simple routing system that lets you create pre-defined queries to simplify links and other content queries. For instance, you can specify
 
 ```
 somelink: {path: "content", source: "somepage.md", target: "main"}
@@ -72,19 +72,19 @@ somelink: {path: "content", source: "somepage.md", target: "main"}
 
 so that you can have a link such as `[link](somelink)` which will act the same as the link `[link](?target=main&source=content/somepage.md)`.
 
-The entire app is contained in single JavaScript file of (currently) around 300 lines, at least 100 of which are comments and debuging printouts.
+The entire app is contained in single JavaScript file of (currently) roughly 300 lines, at least 100 of which are comments and debuging printouts.
 
 ## Future Developments
 That's as far as I plan to take it. At least I hope so. Otherwise it will grow into a femto-framework, burgeon into a pico-framework, and finally bloat into
 a micro-framework. And who wants that?
 
 To do:
-- [ ] attoweb-basics
-  - [ ] directory structure
-  - [ ] config file
-  - [ ] routing
-  - [ ] default pages
-  - [ ] initial page
+- [X] attoweb-basics
+  - [X] directory structure
+  - [X] config file
+  - [X] routing
+  - [X] default pages
+  - [X] initial page
 - [X] themes page
 - [X] quickstart page
 - [ ] plugins -- describe nav plugin. go over plugin loop
