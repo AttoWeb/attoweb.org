@@ -18,7 +18,7 @@ written in Python, NodeJS, Ruby, Go, etc. These all run on dedicated ports (e.g.
 to a domain name.
 
 However, JavaScript really has all I need:
-1. AJAX files from the server (or fGitHub repository).
+1. AJAX files from the server (or GitHub repository).
 1. Render the markdown to HTML.
 1. Style the HTML with CSS.
 
@@ -89,4 +89,4 @@ To do:
 - [X] quickstart page
 - [ ] plugins -- describe nav plugin. go over plugin loop
 - [ ] Make hashes for in-page links work. Will probably require page
-      scrolling to the desired point in the page.
+   scrolling to the desired point in the page.
