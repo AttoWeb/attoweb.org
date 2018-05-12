@@ -162,6 +162,11 @@ class Atto
                 return;
             }
 
+            if (href == "#")
+            {
+                window.location = $self.home_url;
+            }
+
             // Check if the href is a hash. If so, it is for an
             // in-page section
             var is_hash = /^#/.test(href);
@@ -218,7 +223,8 @@ class Atto
                 if (query == "")
                 {
                     debug("empty address -- going home", 2);
-                    window.location = $self.home_url;
+                    window.location.assign($self.home_url);
+                    this.initializePage();
                 }
                 else
                 {
