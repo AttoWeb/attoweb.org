@@ -24,6 +24,12 @@ https://github.com/sindresorhus/github-markdown-css
 is a curated list of themes for that application that can be used anywhere Markdown is used.
 It includes a GitHub theme clone.
 
+### Demo:
+http://markedstyle.com/
+
+### Repo:
+https://github.com/mattstauffer/markedstyle
+
 ## Markdown-CSS-Themes
 [Jason Milkins](https://github.com/jasonm23) has produced a nice set of custom Markdown themes.
 
