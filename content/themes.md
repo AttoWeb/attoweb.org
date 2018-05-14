@@ -43,3 +43,14 @@ http://markdowncss.github.io/
 ### Repo:
 https://github.com/markdowncss
 
+## Markdown-Styles
+[Mikito Takada](https://github.com/mixu) has created a command line tool called
+[markdown-styles](http://mixu.net/markdown-styles/) that includes a number of prebuilt
+styles and utilities to add features and create your own.
+
+### Website:
+https://github.com/mixu/markdown-styles
+
+### Repo:
+https://github.com/mixu/markdown-styles
+
