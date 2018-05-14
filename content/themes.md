@@ -55,7 +55,7 @@ https://github.com/markdowncss
 styles and utilities to add features and create your own.
 
 ### Website:
-https://github.com/mixu/markdown-styles
+http://mixu.net/markdown-styles/
 
 ### Repo:
 https://github.com/mixu/markdown-styles
