@@ -31,7 +31,7 @@ Linux users can create this easliy like so:
 
 ```
 mkdir -p somesite/{content,js,css,assets,assets/img,plugins}
-touch {somesite/index.html,somesite/config.js,somesite/css/style.css}
+touch somesite/{index.html,config.js,css/style.css}
 ```
 
 The only other addition you need is to place _atto.js_ in the `/js` (if that's where
